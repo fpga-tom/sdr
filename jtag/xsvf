@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./jtag xsvf $1

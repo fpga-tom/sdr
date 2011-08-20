@@ -1,0 +1,7 @@
+Directories
+	fx2_programmer/ - pc utility for programming and sending data to CY7C68013A
+	jtag/ - pc utility for programming fpga over usb
+	usbhid/ - firmware for LPC1343 to allow programming fpga
+	usbif/ - firmware for CY7C68013A
+	fpga/ - fpga firmware
+	pcb/ - schematic and pcb design files
