@@ -112,6 +112,7 @@ signal cic_out: std_logic_vector(7 downto 0) := "00000000";
 signal pout : std_logic_vector(15 downto 0) := X"0000";
 signal r : std_logic := '0';
 signal rr : std_logic := '0';
+signal ro : std_logic_vector (15 downto 0) := X"0000";
 begin
 clk_out1 <= clk;
 clk_out <= clk;
@@ -119,7 +120,7 @@ dds1:dds_compiler_v4_0
 	port map(clk=>clk, cosine=>cos, phase_out=>phase_out);
 --mux1: mux
 	--port map(clk=>clk, din=>cos, din1=>"00000000", sel=>c(12), dout=>data_out);
-data_out <= pout(13 downto 6);
+data_out <= not pout(15) & pout(14 downto 8);
 	Inst_multiplier: multiplier PORT MAP(
 		clk => clk,
 		a => cos,
@@ -141,7 +142,7 @@ begin
 	if rising_edge(clk) then
 		--c<=c+'1';
 		if ctl0 = '0' then
-			din <= data_in;
+			din <= '0' & data_in(7 downto 1);
 		end if;
 	end if;
 end process;
