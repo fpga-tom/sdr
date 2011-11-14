@@ -1,72 +1,3 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.all;
-use work.config.all;
-use work.data_types.all;
-
-entity slicer is
-  port (
-    clk: in std_logic;
-    reset: in std_logic;
-    din : in cplx;
-    dout : out cplx
-  );
-end entity;
-
--- architecture Behavioral of slicer is
--- begin
---   process(clk)
---     begin
---       if rising_edge(clk) then
---         if reset = '1' then
---           dout.r <= (others=>'0');
---           dout.i <= (others=>'0');
---         else
---           case din.r(din.r'left) is
---           when '1' => dout.r <= (din.r'left downto frac_part=>'1', others=>'0');
---           when '0' => dout.r <= (frac_part=>'1', others=>'0');
---           when others=> dout.r <= (others=>'0');
---           end case;
-          
---           case din.i(din.i'left) is
---           when '1' => dout.i <= (din.i'left downto frac_part=>'1', others=>'0');
---           when '0' => dout.i <= (frac_part=>'1', others=>'0');
---           when others=> dout.i <= (others=>'0');
---           end case;
---         end if;
---        end if;
---     end process;
--- end Behavioral;
-
-architecture Behavioral of slicer is
-begin
-  -- this slicer also conjugates
-  process(clk)
-    begin
-      if rising_edge(clk) then
-        if reset='1' then
-          dout<=zero_c;
-        else
-          if din.r > zero then
-            if din.i > zero then
-              dout.r <= one;
-              dout.i <= one_m;
-            else
-              dout.r <= one;
-              dout.i <= one;
-            end if;
-          else
-            if din.i > zero then
-              dout.r <= one_m;
-              dout.i <= one_m;
-            else
-              dout.r <= one_m;
-              dout.i <= one;
-            end if;
-         end if;
-      end if;
-    end if;
-    end process;
-  end Behavioral;
 
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -117,6 +48,7 @@ end Behavioral;
 library IEEE;
 use IEEE.std_logic_1164.all;
 use work.data_types.all;
+use work.config.all;
 
 entity sampler is
   port(
@@ -133,8 +65,7 @@ begin
     begin
       if rising_edge(clk) then
         if reset = '1' then
-          dout.r <= 0.0;
-          dout.i <= 0.0;
+          dout <= zero_c;
         else
           dout <= din;
         end if;

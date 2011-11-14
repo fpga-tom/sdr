@@ -9,6 +9,7 @@ package data_types is
       r : data;
       i : data;
   end record;
+  type cplx_vector is array(natural range<>) of cplx;
   type eq_pilot_t is array(natural range<>) of cplx;
   function "*" (a1 : cplx; a2: cplx) return cplx;
   function "*" (a1 : cplx; a2: data) return cplx;
